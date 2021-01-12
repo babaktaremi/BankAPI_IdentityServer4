@@ -33,9 +33,14 @@ namespace BankOfDotNet.IdentityServer
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseIdentityServer();
+            app.UseEndpoints(options =>
+            {
+                options.MapControllers();
+            })
         }
     }
 }
