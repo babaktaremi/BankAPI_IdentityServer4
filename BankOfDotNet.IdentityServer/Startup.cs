@@ -21,6 +21,7 @@ namespace BankOfDotNet.IdentityServer
                 .AddInMemoryApiResources(Config.GetAllApiResources())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiScopes(Config.Scopes)
+                .AddTestUsers(Config.GetUsers())
                 .AddInMemoryClients(Config.GetAllClients());
         }
 

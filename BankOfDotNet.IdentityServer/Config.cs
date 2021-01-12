@@ -3,11 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
+using IdentityServer4.Test;
 
 namespace BankOfDotNet.IdentityServer
 {
     public class Config
     {
+        public static List<TestUser> GetUsers()
+        {
+            return new List<TestUser>
+            {
+                new TestUser
+                {
+                    SubjectId = "1",
+                    Username = "Babak",
+                    Password = "babak@",
+                },
+                new TestUser
+                {
+                    Username = "Bob",
+                    Password = "bob@",
+                    SubjectId = "2"
+                }
+            };
+        }
+
         public static List<IdentityResource> GetIdentityResources()
         {
             return new List<IdentityResource>
@@ -43,6 +63,14 @@ namespace BankOfDotNet.IdentityServer
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = {new Secret("Secret".Sha256())},
                     AllowedScopes = { "BankOfDotNetApi" }
+                },
+
+                new Client
+                {
+                    ClientId = "T.Client",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedScopes = { "BankOfDotNetApi" },
+                    ClientSecrets = new List<Secret>{new Secret("secret".Sha256())}
                 }
             };
         }

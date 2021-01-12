@@ -31,7 +31,7 @@ namespace BankOfDotNet.Api
         {
             services.AddDbContext<BankContext>(options =>
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); 
+                    options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")); 
                 });
             
             services.AddControllers();
