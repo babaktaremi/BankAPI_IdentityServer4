@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 
@@ -71,6 +72,20 @@ namespace BankOfDotNet.IdentityServer
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AllowedScopes = { "BankOfDotNetApi" },
                     ClientSecrets = new List<Secret>{new Secret("secret".Sha256())}
+                },
+
+                new Client
+                {
+                    ClientId = "mvc",
+                    ClientName = "Mvc Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    RedirectUris = { "https://localhost:5501/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:5501/signout-callback-oidc" },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                         IdentityServerConstants.StandardScopes.Profile
+                    }
                 }
             };
         }

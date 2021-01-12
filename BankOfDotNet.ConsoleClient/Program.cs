@@ -34,11 +34,12 @@ namespace BankOfDotNet.ConsoleClient
 
             httpClient.SetBearerToken(tokenResponse.AccessToken);
 
-            var customer =await httpClient.GetAsync("https://localhost:44337/customer");
+            var customer =await httpClient.GetAsync("https://localhost:5001/customer");
 
             var customerJson = await customer.Content.ReadAsStringAsync();
 
             Console.WriteLine(JArray.Parse(customerJson));
+            Console.ReadKey();
         }
     }
 }

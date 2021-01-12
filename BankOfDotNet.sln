@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankOfDotNet.ClientResource
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankOfDotNet.ConsoleClient", "BankOfDotNet.ConsoleClient\BankOfDotNet.ConsoleClient.csproj", "{F457431C-BFA2-485B-9914-613BD629F14D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankOfDotnNet.MvcClient", "BankOfDotnNet.MvcClient\BankOfDotnNet.MvcClient.csproj", "{50624C34-A163-4923-ACC2-2B9758998170}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F457431C-BFA2-485B-9914-613BD629F14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F457431C-BFA2-485B-9914-613BD629F14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F457431C-BFA2-485B-9914-613BD629F14D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50624C34-A163-4923-ACC2-2B9758998170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50624C34-A163-4923-ACC2-2B9758998170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50624C34-A163-4923-ACC2-2B9758998170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50624C34-A163-4923-ACC2-2B9758998170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
