@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using BankOfDotNet.Api.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace BankOfDotNet.Api
 {
@@ -38,7 +39,27 @@ namespace BankOfDotNet.Api
             
             services.AddSwaggerGen(c =>
             {
+                c.OperationFilter<AuthenticationRequirementsOperationFilter>();
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BankOfDotNet.Api", Version = "v1" });
+                c.AddSecurityDefinition("oauth2",new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Implicit = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri("https://localhost:5201/connect/authorize"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "BankOfDotNetApi", "Api Scope" },
+                            },
+                            TokenUrl = new Uri("https://localhost:5201/connect/token")
+                        }
+                    },
+                    In = ParameterLocation.Header,
+                    BearerFormat = "Bearer ",
+                    OpenIdConnectUrl = new Uri("https://localhost:5201/connect/authorize")
+                });
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -56,7 +77,12 @@ namespace BankOfDotNet.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BankOfDotNet.Api v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BankOfDotNet.Api v1");
+                    c.OAuthClientId("swaggerapiui");
+                    c.OAuthAppName("Swagger Api UI");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -69,6 +95,22 @@ namespace BankOfDotNet.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+        }
+    }
+
+    public class AuthenticationRequirementsOperationFilter : IOperationFilter
+    {
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
+        {
+            if (operation.Security == null)
+                operation.Security = new List<OpenApiSecurityRequirement>();
+
+
+            var scheme = new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearer" } };
+            operation.Security.Add(new OpenApiSecurityRequirement
+            {
+                [scheme] = new List<string>()
             });
         }
     }

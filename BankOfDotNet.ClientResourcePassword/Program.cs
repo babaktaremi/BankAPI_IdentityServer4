@@ -42,7 +42,7 @@ namespace BankOfDotNet.ClientResourcePassword
 
             Console.WriteLine(JArray.Parse(result));
 
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }
